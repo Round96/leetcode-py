@@ -1,0 +1,5 @@
+# IDEA
+.idea/*
+venv/*
+**pycache**
+.pytest_cache*

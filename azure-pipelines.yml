@@ -1,0 +1,52 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+    - master
+pr:
+- master
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+stages:
+- stage: install requirements
+  jobs:
+  - job: install_requirements
+    steps:
+    - script:
+      displayName: 'Check code style'
+- stage: test
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/pull'))
+  dependsOn:
+  - check
+  jobs:
+  - job: maven_test
+    steps:
+    - script: sudo apt-get install libxml2-utils
+      displayName: 'Install xmllint dependency'
+    - script: make docker
+      displayName: 'Maven test'
+      env:
+        IMAGE_REPOSITORY: $(IMAGE_REPOSITORY)
+- stage: build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  dependsOn:
+  - check
+  jobs:
+  - job: docker_build
+    steps:
+    - script: sudo apt-get install libxml2-utils
+      displayName: 'Install xmllint dependency'
+    - script: make build-and-publish-docker
+      displayName: 'Docker build in master branch'
+      env:
+        # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables
+        # use secrets correctly
+        DOCKER_REGISTRY_USERNAME: $(DOCKER_REGISTRY_USERNAME)
+        DOCKER_REGISTRY_PASSWORD: $(DOCKER_REGISTRY_PASSWORD)
+        IMAGE_REPOSITORY: $(IMAGE_REPOSITORY)
