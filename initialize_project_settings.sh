@@ -1,5 +1,5 @@
 #!/bin/sh
 
-pip install -r requirements.list
+pip install --upgrade -r requirements.list
 
 echo "#/bin/sh\nmake" > .git/hooks/pre-commit

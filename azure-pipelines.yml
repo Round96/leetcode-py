@@ -21,7 +21,6 @@ stages:
     - script: sh initialize_project_settings.sh
       displayName: 'Initialization'
 - stage: code_style_check_and_run_tests
-  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/pull'))
   dependsOn:
   - install_requirements
   jobs:
