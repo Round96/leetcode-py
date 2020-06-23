@@ -23,7 +23,5 @@ stages:
         versionSpec: '3.7'
     - script: sh initialize_project_settings.sh
       displayName: 'Initialization'
-  - job: check_code_style_and_run_test
-    steps:
     - script: make
       displayName: 'Running tests via pytest'
