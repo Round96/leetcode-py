@@ -2,7 +2,7 @@ PYTHON_VERSION = 3.7
 
 
 .PHONY: all
-all: lint-quiet test
+all: lint test
 
 .PHONY: install
 install: install_tools.sh

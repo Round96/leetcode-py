@@ -18,6 +18,9 @@ stages:
   jobs:
   - job: install_requirements
     steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.7'
     - script: sh initialize_project_settings.sh
       displayName: 'Initialization'
 - stage: code_style_check_and_run_tests
