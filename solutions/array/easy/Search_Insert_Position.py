@@ -1,6 +1,7 @@
 # use binary search to locate the target possible index
 # if it is found, return the index
-# if it is not found, then separately check numbers in the range from start to end to determine its location
+# if it is not found, then separately check numbers in the range from
+# start to end to determine its location
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         length = len(nums)

@@ -1,12 +1,12 @@
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        startNum=self.findMinNum(nums)
-        endNum=self.findMaxNum(nums)
+        startNum = self.findMinNum(nums)
+        endNum = self.findMaxNum(nums)
 
         average = int((startNum + endNum) / 2)
         while endNum - 1 > startNum:
-            smallerBasket=0
-            largerBasket=0
+            smallerBasket = 0
+            largerBasket = 0
             for num in nums:
                 if num >= startNum and num <= endNum:
                     if num <= average:

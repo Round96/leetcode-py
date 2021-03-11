@@ -11,7 +11,7 @@ from typing import List
 
 #         if nums[0] > 0 or nums[len(nums) - 1] < 0:
 #             return []
-        
+
 #         zeroMet = False
 #         zeroNums = 0
 #         negativeEndAt = 0
@@ -21,14 +21,14 @@ from typing import List
 #                 zeroNums = zeroNums + 1
 #             if num == 0 and not zeroMet:
 #                 zeroMet = True
-#                 negativeEndAt = index 
+#                 negativeEndAt = index
 #             elif num > 0:
 #                 if not zeroMet:
 #                     negativeEndAt = index
 #                 positiveStartAt = index
 #                 break
-        
-        
+
+
 #         negs = nums[0: negativeEndAt]
 #         poss = nums[positiveStartAt: len(nums)]
 
@@ -152,21 +152,22 @@ class Solution:
     def threeSum(self, nums):
         res = []
         nums.sort()
-        for i in range(len(nums)-2):
-            if i > 0 and nums[i] == nums[i-1]:
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
                 continue
-            l, r = i+1, len(nums)-1
+            l, r = i + 1, len(nums) - 1
             while l < r:
                 s = nums[i] + nums[l] + nums[r]
                 if s < 0:
-                    l +=1 
+                    l += 1
                 elif s > 0:
                     r -= 1
                 else:
                     res.append((nums[i], nums[l], nums[r]))
-                    while l < r and nums[l] == nums[l+1]:
+                    while l < r and nums[l] == nums[l + 1]:
                         l += 1
-                    while l < r and nums[r] == nums[r-1]:
+                    while l < r and nums[r] == nums[r - 1]:
                         r -= 1
-                    l += 1; r -= 1
+                    l += 1
+                    r -= 1
         return res

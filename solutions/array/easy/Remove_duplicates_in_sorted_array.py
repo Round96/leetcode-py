@@ -3,7 +3,7 @@ class Solution:
         lastNum = None
         duplicatesIndexArray = []
         for num in nums:
-            if lastNum == None:
+            if lastNum is None:
                 lastNum = num
                 continue
             if lastNum == num:

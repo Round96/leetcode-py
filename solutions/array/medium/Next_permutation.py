@@ -8,7 +8,7 @@ class Solution:
             comparationLengthStartFromEnd = 2
 
             while comparationLengthStartFromEnd <= length:
-                subArray = nums[length - comparationLengthStartFromEnd : length]
+                subArray = nums[length - comparationLengthStartFromEnd: length]
 
                 isAscent = self.checkIfArrayIsInAscendOrder(subArray)
 
@@ -18,18 +18,18 @@ class Solution:
                 else:
                     numToBeCompared = subArray[0]
 
-                    numToBeExchangedIntoBegin, numIndex = self.findNextBiggerNumInArray(numToBeCompared, subArray)
+                    numToBeExchangedIntoBegin, numIndex = self.findNextBiggerNumInArray(
+                        numToBeCompared, subArray)
 
                     subArray[0] = numToBeExchangedIntoBegin
                     subArray[numIndex] = numToBeCompared
 
-                    subSubArray = subArray[1: len(subArray)]
-
-                    subSubArray.sort()
+                    subSubArray = sorted(subArray[1: len(subArray)])
 
                     nums[length - comparationLengthStartFromEnd] = subArray[0]
                     for i in range(comparationLengthStartFromEnd - 1):
-                        nums[length - comparationLengthStartFromEnd + 1 + i] = subSubArray[i]
+                        nums[length - comparationLengthStartFromEnd +
+                             1 + i] = subSubArray[i]
                     break
             if comparationLengthStartFromEnd == length + 1:
                 nums.sort()
@@ -37,7 +37,7 @@ class Solution:
     def checkIfArrayIsInAscendOrder(self, nums: List[int]):
         lastNum = None
         for num in nums:
-            if lastNum != None:
+            if lastNum is not None:
                 if lastNum >= num:
                     continue
                 else:
@@ -45,7 +45,7 @@ class Solution:
             else:
                 lastNum = num
         return True
-        
+
     def findNextBiggerNumInArray(self, val: int, nums: List[int]):
         result = -1, -1
         temp = -1

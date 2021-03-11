@@ -12,7 +12,7 @@ class Solution:
                 hi = mid - 1
             else:
                 num_index = mid
-                break;
+                break
         if num_index == -1:
             return [-1, -1]
 
@@ -21,10 +21,10 @@ class Solution:
             if nums[start_index - 1] == nums[start_index]:
                 start_index = start_index - 1
             else:
-                break;
-        while end_index + 1 <= len(nums) -1:
+                break
+        while end_index + 1 <= len(nums) - 1:
             if nums[end_index + 1] == nums[end_index]:
                 end_index = end_index + 1
             else:
-                break;
+                break
         return [start_index, end_index]

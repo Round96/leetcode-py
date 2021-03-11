@@ -16,4 +16,3 @@ class Solution:
                     nums[l] = nums[r]
                     nums[r] = temp
         return result
-        
