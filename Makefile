@@ -18,4 +18,4 @@ lint:
 
 .PHONY: test
 test:
-	pytest tests
+	pytest tests -o log_cli=true -o log_cli_level="INFO"

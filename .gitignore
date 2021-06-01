@@ -3,3 +3,6 @@
 venv/*
 **pycache**
 .pytest_cache*
+
+# MAC
+.DS_Store
