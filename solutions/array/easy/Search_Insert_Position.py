@@ -2,6 +2,9 @@
 # if it is found, return the index
 # if it is not found, then separately check numbers in the range from
 # start to end to determine its location
+from typing import List
+
+
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         length = len(nums)

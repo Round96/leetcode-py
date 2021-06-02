@@ -1,4 +1,3 @@
-
 from solutions.array.medium.Jump_Game2 import Solution
 
 
