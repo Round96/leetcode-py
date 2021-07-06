@@ -17,8 +17,8 @@ class Solution:
         if len(nums) == 0:
             return [nums]
 
-
-        # The difference between this method and the below is whether sort the array first and skip the adjacent same number
+        # The difference between this method and the below is whether sort the
+        # array first and skip the adjacent same number
         for (index, num) in enumerate(nums):
             if index != 0 and num == nums[index - 1]:
                 continue

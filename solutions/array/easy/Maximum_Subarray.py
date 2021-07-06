@@ -25,7 +25,47 @@ from typing import List
 
 
 class Solution:
+
+    # using divide and conquer
     def maxSubArray(self, nums: List[int]) -> int:
+        return self.findMaxSubArray(nums, 0, len(nums) - 1)
+
+    def findMaxSubArray(self, nums: List[int], left, right):
+        if right == left:
+            return nums[left]
+
+        if left + 1 == right:
+            return max(max(nums[left], nums[right]), nums[left] + nums[right])
+
+        mid = int((left + right) / 2)
+
+        maxLeftSum = self.findMaxSubArray(nums, left, mid)
+        maxRightSum = self.findMaxSubArray(nums, mid + 1, right)
+        maxCrossingSum = self.findCrossMaxSubArray(nums, left, mid, right)
+
+        return max(max(maxLeftSum, maxRightSum), maxCrossingSum)
+
+    def findCrossMaxSubArray(self, nums: List[int], left, mid, right):
+        leftSum = 0
+        maxLeftSum = -105
+        for i in range(mid - left + 1):
+            leftSum += nums[mid - i]
+            if maxLeftSum < leftSum:
+                maxLeftSum = leftSum
+
+        rightSum = 0
+        maxRightSum = -105
+        for i in range(right - mid + 1):
+            rightSum += nums[mid + i]
+            if maxRightSum < rightSum:
+                maxRightSum = rightSum
+
+        return max(max(maxLeftSum, maxRightSum),
+                   maxLeftSum + maxRightSum - nums[mid])
+
+    # using dp alogrithm
+
+    def maxSubArray_DP(self, nums: List[int]) -> int:
         for i in range(1, len(nums)):
             if nums[i - 1] > 0:
                 nums[i] += nums[i - 1]
