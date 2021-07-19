@@ -36,7 +36,7 @@ class Solution:
         self.markAttchedQueens(i, j, queensNeedNum, queens)
 
         potentialQueenResult = self.findPotentialQueen(
-            queensNeedNum, queens)
+            queensNeedNum, i + 1, queens)
 
         for (potentialIndexI, potentialIndexJ) in potentialQueenResult:
             tempQueens = self.deepcopy(queens)
@@ -53,27 +53,19 @@ class Solution:
 
     def markAttchedQueens(self, i, j, n: int, queens: List[List[int]]):
         for index in range(0, n):
-            queens[i][index] = 0
             queens[index][j] = 0
-
-            if i - index > -1 and j - index > -1:
-                queens[i - index][j - index] = 0
             if i + index < n and j + index < n:
                 queens[i + index][j + index] = 0
-
-            if i - index > -1 and j + index < n:
-                queens[i - index][j + index] = 0
             if i + index < n and j - index > -1:
                 queens[i + index][j - index] = 0
-
         queens[i][j] = 1
 
-    def findPotentialQueen(self, n: int, queens: List[List[int]]) -> Tuple:
+    def findPotentialQueen(self, n: int, startRow,
+                           queens: List[List[int]]) -> Tuple:
         result = []
         for i in range(0, n):
-            for j in range(0, n):
-                if queens[i][j] == -1:
-                    result.append((i, j))
+            if queens[startRow][i] == -1:
+                result.append((startRow, i))
 
         return result
 
