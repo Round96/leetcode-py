@@ -5,8 +5,10 @@ class Solution:
 
         longestStr = ''
         for index in range(0, len(s) - 1):
-            evenStr = self.getEvenLengthPalindrimeSubString(s, index)
-            oddStr = self.getOddLengthPalindrimeSubString(s, index)
+            evenStr = self.getEvenLengthPalindrimeSubString(
+                s, index, int(len(longestStr) / 2))
+            oddStr = self.getOddLengthPalindrimeSubString(
+                s, index, int(len(longestStr) / 2))
 
             if len(evenStr) > len(oddStr):
                 if len(evenStr) > len(longestStr):
@@ -17,9 +19,12 @@ class Solution:
 
         return longestStr
 
-    def getEvenLengthPalindrimeSubString(self, s: str, index):
-        offset = 0
+    def getEvenLengthPalindrimeSubString(self, s: str, index, maxLength):
+        offset = maxLength
         l, r = index - offset, index + offset + 1
+        if s[l + 1: index + 1] != s[index +
+                                    1: r][::-1]:
+            return ''
         while l >= 0 and r < len(s):
             if s[l] == s[r]:
                 offset += 1
@@ -29,9 +34,12 @@ class Solution:
 
         return s[(index - offset + 1): (index + offset + 1)]
 
-    def getOddLengthPalindrimeSubString(self, s: str, index):
-        offset = 1
+    def getOddLengthPalindrimeSubString(self, s: str, index, maxLength):
+        offset = maxLength
         l, r = index - offset, index + offset
+        if s[l: index] != s[index +
+                            1: r + 1][::-1]:
+            return ''
         while l >= 0 and r < len(s):
             if s[l] == s[r]:
                 offset += 1
@@ -39,4 +47,4 @@ class Solution:
                 break
             l, r = index - offset, index + offset
 
-        return s[(index - offset + 1): (index + offset)]
+        return s[(l + 1): r]
