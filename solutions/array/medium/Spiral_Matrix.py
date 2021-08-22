@@ -35,7 +35,6 @@ class Solution:
                     2 == 0.5 and row_length > column_length:
                 for index in range(row, row_length - row):
                     result.append(matrix[index][column_length - 1 - row])
-                logger.info(result)
                 return result
             else:
                 result = result + self.spiral_once(
@@ -44,7 +43,6 @@ class Solution:
                     row,
                     row_length,
                     column_length)
-            logger.info(result)
 
         return result
 
