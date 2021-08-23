@@ -5,9 +5,11 @@ logger = logging.getLogger()
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         patterns = self.splitPatternIntoMinorPattern(p)
-        return self.subMatch(s, 0, patterns, 0)
+        globalResult = {}
+        return self.subMatch(s, 0, patterns, 0, globalResult)
 
-    def subMatch(self, s: str, characterIndex, patterns, patternIndex):
+    def subMatch(self, s: str, characterIndex,
+                 patterns, patternIndex, globalResult):
         if characterIndex == len(s) and patternIndex == len(patterns):
             return True
 
@@ -22,8 +24,8 @@ class Solution:
 
         if len(patterns[patternIndex]) == 1:
             if character == patterns[patternIndex] or patterns[patternIndex] == '.':
-                return self.subMatch(s, characterIndex + 1,
-                                     patterns, patternIndex + 1)
+                return self.getResultFromGlobalResultOrExecute(
+                    s, characterIndex + 1, patterns, patternIndex + 1, globalResult)
             else:
                 return False
         else:
@@ -33,11 +35,19 @@ class Solution:
             #     (c == '.' or c == s[characterIndex]) and self.subMatch(s, characterIndex + 1, patterns, patternIndex))
             if (character == c and character != '') or (
                     c == '.' and character != ''):
-                return self.subMatch(s, characterIndex, patterns, patternIndex + 1) \
-                    or self.subMatch(s, characterIndex + 1, patterns, patternIndex)
+                return self.getResultFromGlobalResultOrExecute(s, characterIndex, patterns, patternIndex + 1, globalResult) \
+                    or self.getResultFromGlobalResultOrExecute(s, characterIndex + 1, patterns, patternIndex, globalResult)
             else:
-                return self.subMatch(
-                    s, characterIndex, patterns, patternIndex + 1)
+                return self.getResultFromGlobalResultOrExecute(
+                    s, characterIndex, patterns, patternIndex + 1, globalResult)
+
+    def getResultFromGlobalResultOrExecute(
+            self, s, characterIndex, p, patternIndex, globalResult):
+        if (characterIndex, patternIndex) in globalResult:
+            return globalResult[(characterIndex, patternIndex)]
+        globalResult[(characterIndex, patternIndex)] = self.subMatch(
+            s, characterIndex, p, patternIndex, globalResult)
+        return globalResult[(characterIndex, patternIndex)]
 
     def splitPatternIntoMinorPattern(self, p: str):
         patterns = []
